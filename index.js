@@ -8,6 +8,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -19,6 +20,7 @@ const connection = mysql.createConnection({
   database: process.env.DATABASE,
   port: process.env.PORT,
 });
+
 connection.connect((err) => {
   if (err) {
     console.error('Error de conexión: ' + err.stack);
@@ -27,7 +29,6 @@ connection.connect((err) => {
   console.log('Estas Conectado a la base de datos MySQL.');
 });
 
-//-------------
 app.get('/', function (req, res) {
   res.render('index.ejs');
 });
