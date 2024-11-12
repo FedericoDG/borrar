@@ -1,20 +1,17 @@
-// Importar las dependencias necesarias
 const express = require('express');
 const mysql = require('mysql2');
-const bodyParser = require('body-parser');
-const path = require('path'); // Para manejar rutas
+const path = require('path');
 const cors = require('cors');
-const app = express();
 require('dotenv').config();
-const port = 3000;
+
+const app = express();
 app.use(cors());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-// Configurar EJS como motor de plantillas
+
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views')); // Asegurarse de que las vistas se sirvan desde la carpeta views
-// Configuración de la conexión a la base de datos
+app.set('views', path.join(__dirname, 'views'));
+
 const connection = mysql.createConnection({
   host: process.env.HOST,
   user: process.env.USER, // Cambia esto si tu usuario de MySQL es diferente
